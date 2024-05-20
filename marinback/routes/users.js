@@ -1,9 +1,10 @@
-var express = require('express');
+import express from 'express';
+import { getSocios,postSocio } from '../controllers/socioController.js';
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.get('/', getSocios
+);
 
-module.exports = router;
+router.post('/registro',postSocio)
+export default router;
