@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import imagen from './assets/logo.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Importa Link desde react-router-dom
 import { Box, FormControl, Heading, Input, FormLabel, Center, Image } from "@chakra-ui/react";
 import * as React from 'react';
 
@@ -19,6 +19,10 @@ export function Login() {
     } else {
       alert('Credenciales inválidas');
     }
+  }
+  
+  function registroSubmit(e) {
+    navigate('/registro');
   }
 
   return (
@@ -46,6 +50,12 @@ export function Login() {
                <Input type='submit' mt='3px' id='enviar' borderColor='teal' value='Iniciar Sesión' />
              </FormControl>
             </form>
+            {/* Cambia el FormControl por un Link */}
+            <Link to="/registro">
+              <FormControl mt='3px'>
+                <Input type='submit' mt='3px' id='enviar' borderColor='teal' value='Registrarse'/>
+              </FormControl>
+            </Link>
            </Box>
          </Box>
         </Center>
@@ -53,3 +63,4 @@ export function Login() {
     </>
   );
 }
+s

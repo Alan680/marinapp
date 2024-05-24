@@ -3,6 +3,7 @@ import {Login} from './Login';
 import { Dashboard } from './Dashboard';
 import { DespachoNew } from './NuevoDespacho';
 import { DetalleDespacho } from './DetalleDespacho';
+import { Registro } from './Registro';
 
 
 
@@ -14,6 +15,7 @@ export function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/despacho" element={<DespachoNew />} />
       <Route path="/detalledespacho" element={<DetalleDespacho />} />
+      <Route path="/registro" element={<Registro />} />
     </Routes>
     
   )
