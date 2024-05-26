@@ -1,15 +1,14 @@
 import express from 'express';
-var router = express.Router();
+const router = express.Router();
 
+const url = 'http://localhost:3000';
 
-router.get('/', function(req, res, next) {
-  res.redirect('/login'); 
+router.get('/', (req, res, next) => {
+  res.redirect('/login'); // Redirigir a la página de inicio de sesión
 });
 
-/* GET login page. */
-router.get('/login', function(req, res, next) {
-  
-  res.redirect('http://localhost:3000/login'); 
+router.get('/login', (req, res, next) => {
+  res.redirect(`${url}/login`); // Redirigir a la página de inicio de sesión
 });
 
 export default router;
