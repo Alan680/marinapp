@@ -21,10 +21,6 @@ export function Login() {
     }
   }
   
-  function registroSubmit(e) {
-    navigate('/registro');
-  }
-
   return (
     <>
       <Box mt='30px'>
@@ -50,7 +46,6 @@ export function Login() {
                <Input type='submit' mt='3px' id='enviar' borderColor='teal' value='Iniciar Sesión' />
              </FormControl>
             </form>
-            {/* Cambia el FormControl por un Link */}
             <Link to="/registro">
               <FormControl mt='3px'>
                 <Input type='submit' mt='3px' id='enviar' borderColor='teal' value='Registrarse'/>

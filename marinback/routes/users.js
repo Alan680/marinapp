@@ -1,10 +1,15 @@
 import express from 'express';
-import { getSocios,postSocio } from '../controllers/socioController.js';
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', getSocios
-);
 
-router.post('/registro',postSocio)
+router.get('/', function(req, res, next) {
+  res.redirect('/login'); 
+});
+
+/* GET login page. */
+router.get('/login', function(req, res, next) {
+  
+  res.redirect('http://localhost:3000/login'); 
+});
+
 export default router;
