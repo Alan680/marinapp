@@ -13,7 +13,7 @@ export function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http:/localhost:3000/login', { //controlar si el puerto es el correcto
+      const response = await fetch('http://localhost:8080/login', { //controlar si el puerto es el correcto
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ export function Login() {
               <form id='formulario' onSubmit={handleSubmit}>
                 <FormControl mt='3px'>
                   <FormLabel>Email</FormLabel>
-                  <Input required type='text' id='usuario' onChange={(event) => setSocio({ ...socio, usuario: event.target.value })} />
+                  <Input required type='text' id='email' onChange={(event) => setSocio({ ...socio, email: event.target.value })} />
                 </FormControl>
                 <FormControl mt='3px'>
                   <FormLabel>Contraseña</FormLabel>
