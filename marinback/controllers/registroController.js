@@ -28,7 +28,7 @@ const registerUser = async (req, res) => {
 
         await insertSocio(newUser);
 
-        res.status(200).json({ msg: 'User registered successfully' });
+        res.status(200).json({ msg: 'Usuario Registrado correctamente' });
     } catch (error) {
         console.log('Register Controller falló', error);
         return res.status(500).json({ errores: 'Error en los datos ingresados' });

@@ -28,12 +28,45 @@ export function DespachoNew() {
         setDespacho({ ...despacho, pasajeros: [...despacho.pasajeros, { nombre: '', apellido: '' }] });
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-        // Lógica para enviar el despacho al backend
-        console.log('Despacho:', despacho);
-    }
 
+        try {
+            const response = await fetch('http://localhost:8080/despacho', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nombreEmbarcacion: despacho.nombreEmbarcacion,
+                    matriculaEmbarcacion: despacho.matriculaEmbarcacion,
+                    fechaSalida: despacho.fechaSalida,
+                    horaSalida: despacho.horaSalida,
+                    pasajeros: despacho.pasajeros,
+                    dniResponsable: despacho.dniResponsable,
+                    telefono: despacho.telefono,
+                    fechaLlegada: despacho.fechaLlegada,
+                    horaLlegada: despacho.horaLlegada,
+                    observaciones: despacho.observaciones
+                }),
+                credentials: 'include', // Envia cookies con la solicitud
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Si la autenticación es exitosa, guarda el token 
+                sessionStorage.setItem('usuario', socio.email);
+                navigate('/dashboard');
+            } else {
+                // Manejar errores de autenticación
+                setError(data.errores || 'Error de autenticación');
+            }
+        } catch (error) {
+            console.error('Error de conexión:', error);
+            setError('Error de conexión');
+        }
+    }
     return (
         <>
             <Header />
