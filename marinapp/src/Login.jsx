@@ -5,7 +5,7 @@ import { Box, FormControl, Heading, Input, FormLabel, Center, Image } from "@cha
 import * as React from 'react';
 
 export function Login() {
-  const [socio, setSocio] = useState({ usuario: '', password: '' });
+  const [socio, setSocio] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -13,7 +13,7 @@ export function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http:/localhost:3306/login', { //controlar si el puerto es el correcto
+      const response = await fetch('http:/localhost:3000/login', { //controlar si el puerto es el correcto
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export function Login() {
 
       if (response.ok) {
         // Si la autenticación es exitosa, guarda el token 
-        sessionStorage.setItem('usuario', socio.usuario);
+        sessionStorage.setItem('usuario', socio.email);
         navigate('/dashboard');
       } else {
         // Manejar errores de autenticación
@@ -55,7 +55,7 @@ export function Login() {
             <Box p='20px'>
               <form id='formulario' onSubmit={handleSubmit}>
                 <FormControl mt='3px'>
-                  <FormLabel>Usuario</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <Input required type='text' id='usuario' onChange={(event) => setSocio({ ...socio, usuario: event.target.value })} />
                 </FormControl>
                 <FormControl mt='3px'>
