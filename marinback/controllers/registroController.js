@@ -1,7 +1,7 @@
 import { validationResult } from 'express-validator';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
-import { insertSocio } from '../services/socioService.js'; // Servicio para insertar un nuevo usuario
+import { insertSocio, selectSocioByEmail } from '../services/socioService.js'; // Servicio para insertar un nuevo usuario
 
 dotenv.config();
 
@@ -11,10 +11,17 @@ const registerUser = async (req, res) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
+            console.log('Errores de validación:', errors.array());
             return res.status(400).json({ errors: errors.array() });
         }
 
         const { nombre, apellido, email, password } = req.body;
+
+        const existingUser = await selectSocioByEmail(email);
+        if (existingUser.length > 0) {
+            console.log('El email ya está registrado:', email);
+            return res.status(400).json({ errors: 'El email ya está registrado' });
+        }
 
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
@@ -28,10 +35,11 @@ const registerUser = async (req, res) => {
 
         await insertSocio(newUser);
 
-        res.status(200).json({ msg: 'Usuario Registrado correctamente' });
+        console.log('Usuario registrado correctamente:', newUser);
+        res.status(200).json({ msg: 'Usuario registrado correctamente' });
     } catch (error) {
         console.log('Register Controller falló', error);
-        return res.status(500).json({ errores: 'Error en los datos ingresados' });
+        return res.status(500).json({ errors: 'Error en los datos ingresados' });
     }
 };
 

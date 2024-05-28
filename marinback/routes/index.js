@@ -1,5 +1,6 @@
 import express from 'express';
 import { loginUser } from '../controllers/loginController.js';
+import {nuevoDespacho} from '../controllers/nuevoDespachoController.js';
 const router = express.Router();
 
 
@@ -15,7 +16,7 @@ router.get('/dashboard', (req, res, next) => {
   res.redirect('dashboard');
 });
 
-
+router.post('/despacho', nuevoDespacho);
 
 
 export default router;

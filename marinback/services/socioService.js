@@ -14,7 +14,7 @@ async function selectSocio(idSocio){
     const [result] = await con.execute('SELECT * FROM Socio WHERE idSocio = ?', [idSocio]);
     return result;
 }
-const selectSocioByEmail = async (email) => {
+async function selectSocioByEmail(email){
     const [rows] = await con.query('SELECT * FROM socio WHERE email = ?', [email]);
     return rows;
 };
