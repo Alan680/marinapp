@@ -1,6 +1,7 @@
 import express from 'express';
 import { loginUser } from '../controllers/loginController.js';
 import {nuevoDespacho} from '../controllers/nuevoDespachoController.js';
+import verificarToken from '../middlewares/verificarJWT.js';
 const router = express.Router();
 
 
@@ -16,7 +17,7 @@ router.get('/dashboard', (req, res, next) => {
   res.redirect('dashboard');
 });
 
-router.post('/despacho', nuevoDespacho);
+router.post('/despacho', verificarToken, nuevoDespacho);
 
 
 export default router;

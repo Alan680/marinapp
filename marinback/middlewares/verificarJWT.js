@@ -1,67 +1,27 @@
-
-import dotenv from 'dotenv';
-dotenv.config();
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import { request, response } from 'express';
 
-//llave secreta de la app
-const secreto = process.env.SECRETORPRIVATEKEY;
-
-// const verificarToken = (req = request, res = response, next) => {
-    
-//     //obtenemos el token del header 
-//     //const token = req.header('x-auth-token');
-
-//     //obtenemos el token del cookie.
-//     const token = req.cookies.token;
-
-//     console.log('==============================');
-//     console.log(token);
-//     console.log('==============================');
-
-
-//     //si no hay token
-//     if(!token){
-//         return res.render('error', {
-//             errores: 'No hay token'
-//         });
-//     }
-
-//     try {
-//         //verificamos el token
-//         const payload = jwt.verify(token, secreto);
-
-//         //si el token es válido
-//         req.user = payload.user;
-        
-//         next();
-
-//     } catch (error) {
-//         console.log(error);
-//         res.render('error', {
-//             errores: 'Token no válido'
-//         });
-//     }
-// }
-
+dotenv.config();
 
 const verificarToken = (req = request, res = response, next) => {
     const token = req.cookies.token;
 
     if (!token) {
-        console.log('VerificarToken error');
-        return res.redirect('/login');
+        console.log('No se proporcionó ningún token');
+        return res.status(401).json({ message: 'Acceso no autorizado: No se proporcionó ningún token' });
     }
 
     try {
-        const payload = jwt.verify(token, secreto);
-        req.user = payload.user;
-        console.log('VerificarToken funcional');
+        const payload = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
+        req.user = payload;
+        console.log('Token verificado correctamente');
         next();
     } catch (error) {
-        console.log(error);
-        return res.redirect('/login');
+        console.log('Error al verificar el token:', error.message);
+        return res.status(401).json({ message: 'Acceso no autorizado: Token inválido' });
     }
 };
 
 export default verificarToken;
+

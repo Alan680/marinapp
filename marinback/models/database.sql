@@ -23,5 +23,5 @@ CREATE TABLE socio (
     fechaLlegada DATE,
     horaLlegada TIME,
     observaciones varchar(255),
- FOREIGN KEY idSocio REFERENCES socio(idSocio)
+ FOREIGN KEY (idSocio) REFERENCES socio(idSocio)
 );

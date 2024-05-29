@@ -1,77 +1,67 @@
-async function insertDespacho(despachoDTO) {
-    // Verificar que los campos requeridos estén definidos
-    const {
+import  connection  from '../models/config.js';
+
+const insertDespacho = async (despacho) => {
+       const {
         nombreEmbarcacion,
         matriculaEmbarcacion,
         fechaSalida,
         horaSalida,
-        pasajerosABordo,
-        idSocio,
-        numeroTelefono,
+        pasajeros,
+        dniResponsable,
+        telefono,
         fechaLlegada,
         horaLlegada,
-        observaciones
-    } = despachoDTO;
+        observaciones,
+        idSocio
+    } = despacho;
 
-    if (
-        !nombreEmbarcacion ||
-        !matriculaEmbarcacion ||
-        !fechaSalida ||
-        !horaSalida ||
-        !pasajerosABordo ||
-        idSocio === undefined ||
-        !numeroTelefono ||
-        !fechaLlegada ||
-        !horaLlegada ||
-        !observaciones
-    ) {
-        throw new Error('Todos los campos son obligatorios');
+    const sql = `
+        INSERT INTO despacho (
+            nombreEmbarcacion,
+            matriculaEmbarcacion,
+            fechaSalida,
+            horaSalida,
+            pasajeros,
+            dniResponsable,
+            telefono,
+            fechaLlegada,
+            horaLlegada,
+            observaciones,
+            idSocio
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    const params = [
+        nombreEmbarcacion,
+        matriculaEmbarcacion,
+        fechaSalida,
+        horaSalida,
+        JSON.stringify(pasajeros), // Convertimos el array de pasajeros a una cadena JSON
+        dniResponsable,
+        telefono,
+        fechaLlegada,
+        horaLlegada,
+        observaciones,
+        idSocio
+    ];
+
+    try {
+        await connection.execute(sql, params);
+    } catch (error) {
+        console.error('Error al insertar despacho:', error.message);
+        throw error;
     }
+};
 
-    // Crea una nueva instancia de DespachoDTO
-    const despacho = new DespachoDTO(
-        nombreEmbarcacion,
-        matriculaEmbarcacion,
-        fechaSalida,
-        horaSalida,
-        pasajerosABordo,
-        idSocio,
-        numeroTelefono,
-        fechaLlegada,
-        horaLlegada,
-        observaciones
-    );
-
-    // Inserta el despacho en la base de datos
-    const [result] = await con.execute(
-        `INSERT INTO despacho (
-            nombreEmbarcacion, 
-            matriculaEmbarcacion, 
-            fechaSalida, 
-            horaSalida, 
-            pasajerosABordo, 
-            idSocio, 
-            numeroTelefono, 
-            fechaLlegada, 
-            horaLlegada, 
-            observaciones
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [
-            despacho.nombreEmbarcacion, 
-            despacho.matriculaEmbarcacion, 
-            despacho.fechaSalida, 
-            despacho.horaSalida, 
-            despacho.pasajerosABordo, 
-            despacho.idSocio, 
-            despacho.numeroTelefono, 
-            despacho.fechaLlegada, 
-            despacho.horaLlegada, 
-            despacho.observaciones
-        ]
-    );
-    
+async function selectDespachoSocio(){
+    const[result] = await connection.execute('Select * from despacho where idSocio = ?', [idSocio]);
     return result;
-}
-export{
-    insertDespacho
-}
+};
+
+
+export { 
+    insertDespacho,
+    selectDespachoSocio
+};
+
+

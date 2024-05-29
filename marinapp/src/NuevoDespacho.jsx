@@ -21,13 +21,9 @@ export function DespachoNew() {
 
     const handleChange = (event, index) => {
         const { name, value } = event.target;
-        if (name === 'nombre' || name === 'apellido') {
-            const pasajerosActualizados = [...despacho.pasajeros];
-            pasajerosActualizados[index][name] = value;
-            setDespacho({ ...despacho, pasajeros: pasajerosActualizados });
-        } else {
-            setDespacho({ ...despacho, [name]: value });
-        }
+        const pasajerosActualizados = [...despacho.pasajeros];
+        pasajerosActualizados[index] = { ...pasajerosActualizados[index], [name]: value };
+        setDespacho({ ...despacho, pasajeros: pasajerosActualizados });
     };
 
     const handleAddPasajero = () => {
@@ -41,7 +37,7 @@ export function DespachoNew() {
 
         if (
             nombreEmbarcacion === '' || 
-            matriculaEmbarcacion === '' || 
+            matriculaEmbarcacion === '' ||
             fechaSalida === '' || 
             horaSalida === '' || 
             pasajeros.length === 0 || 
@@ -57,6 +53,7 @@ export function DespachoNew() {
         }
 
         try {
+            console.log(despacho);
             const response = await fetch('http://localhost:8080/despacho', {
                 method: 'POST',
                 headers: {
@@ -93,50 +90,50 @@ export function DespachoNew() {
                         {success && <Box color='green'>{success}</Box>}
                         <form onSubmit={handleSubmit}>
                             <FormControl mt='3px'>
-                                <FormLabel>Nombre de la embarcación</FormLabel>
-                                <Input name='nombreEmbarcacion' type='text' value={despacho.nombreEmbarcacion} onChange={handleChange} required />
+                                <FormLabel>Nombre de la embarcación</FormLabel>                                      
+                                <Input id='nombreEmbarcacion' type='text' required onChange={(event) => setDespacho({...despacho, nombreEmbarcacion: event.target.value})} />
                             </FormControl>
                             <FormControl mt='3px'>
                                 <FormLabel>Matrícula de la embarcación</FormLabel>
-                                <Input name='matriculaEmbarcacion' type="text" value={despacho.matriculaEmbarcacion} onChange={handleChange} required />
+                                <Input id='matriculaEmbarcacion' type="text" onChange={(event)=> setDespacho({...despacho, matriculaEmbarcacion: event.target.value})} required />
                             </FormControl>
                             <FormControl mt='3px'>
                                 <FormLabel>Fecha de salida</FormLabel>
-                                <Input name='fechaSalida' type="date" value={despacho.fechaSalida} onChange={handleChange} required />
+                                <Input id='fechaSalida' type="date"  onChange={(event)=> setDespacho({...despacho, fechaSalida :event.target.value})} required />
                             </FormControl>
                             <FormControl mt='3px'>
                                 <FormLabel>Hora de salida</FormLabel>
-                                <Input name='horaSalida' type="time" value={despacho.horaSalida} onChange={handleChange} required />
+                                <Input id='horaSalida' type="time" onChange={(event)=> setDespacho({...despacho, horaSalida:event.target.value})} required />
                             </FormControl>
                             <Box mt='3px'>
                                 <FormLabel>Pasajeros</FormLabel>
                                 {despacho.pasajeros.map((pasajero, index) => (
                                     <Box key={index} display='flex' mt='3px'>
-                                        <Input name='nombre' placeholder='Nombre' value={pasajero.nombre} onChange={event => handleChange(event, index)} required />
-                                        <Input name='apellido' placeholder='Apellido' value={pasajero.apellido} onChange={event => handleChange(event, index)} required />
+                                        <Input id={`nombre-${index}`} name='nombre' placeholder='Nombre' value={pasajero.nombre} onChange={event => handleChange(event, index)} required />
+                                        <Input id={`apellido-${index}`} name='apellido' placeholder='Apellido' value={pasajero.apellido} onChange={event => handleChange(event, index)} required />
                                     </Box>
                                 ))}
                                 <Button mt='10px' onClick={handleAddPasajero}>Agregar pasajero</Button>
                             </Box>
                             <FormControl mt='3px'>
                                 <FormLabel>Número de DNI del responsable</FormLabel>
-                                <Input name='dniResponsable' type="text" value={despacho.dniResponsable} onChange={handleChange} required />
+                                <Input id='dniResponsable' type="text" onChange={(event) => setDespacho({...despacho, dniResponsable:event.target.value})} required />
                             </FormControl>
                             <FormControl mt='3px'>
                                 <FormLabel>Número de teléfono</FormLabel>
-                                <Input name='telefono' type="text" value={despacho.telefono} onChange={handleChange} required />
+                                <Input id='telefono' type="text" onChange={(event) => setDespacho({...despacho,telefono :event.target.value})} required />
                             </FormControl>
                             <FormControl mt='3px'>
                                 <FormLabel>Fecha de llegada</FormLabel>
-                                <Input name='fechaLlegada' type="date" value={despacho.fechaLlegada} onChange={handleChange} required />
+                                <Input id='fechaLlegada' type="date" onChange={(event) => setDespacho({...despacho, fechaLlegada:event.target.value})} required />
                             </FormControl>
                             <FormControl mt='3px'>
                                 <FormLabel>Hora de llegada</FormLabel>
-                                <Input name='horaLlegada' type="time" value={despacho.horaLlegada} onChange={handleChange} required />
+                                <Input id='horaLlegada' type="time" onChange={(event) => setDespacho({...despacho, horaLlegada :event.target.value})} required />
                             </FormControl>
                             <FormControl mt='3px'>
                                 <FormLabel>Observaciones</FormLabel>
-                                <Input name='observaciones' type="text" value={despacho.observaciones} onChange={handleChange} required />
+                                <Input id='observaciones' type="text" onChange={(event) => setDespacho({...despacho, observaciones:event.target.value})} required />
                             </FormControl>
                             <FormControl mt='3px'>
                                 <Button type="submit">Crear despacho</Button>
