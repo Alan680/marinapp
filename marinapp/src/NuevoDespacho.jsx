@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Header } from './Header';
 import * as React from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { Center, Box, Heading, FormControl, FormLabel, Input, Button } from '@chakra-ui/react';
 
 export function DespachoNew() {
+    const navigate = useNavigate();
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [despacho, setDespacho] = useState({
@@ -11,9 +13,9 @@ export function DespachoNew() {
         matriculaEmbarcacion: '',
         fechaSalida: '',
         horaSalida: '',
-        pasajeros: [],
+        pasajerosABordo: [],
         dniResponsable: '',
-        telefono: '',
+        numeroTelefono: '',
         fechaLlegada: '',
         horaLlegada: '',
         observaciones: ''
@@ -21,29 +23,32 @@ export function DespachoNew() {
 
     const handleChange = (event, index) => {
         const { name, value } = event.target;
-        const pasajerosActualizados = [...despacho.pasajeros];
+        const pasajerosActualizados = [...despacho.pasajerosABordo];
         pasajerosActualizados[index] = { ...pasajerosActualizados[index], [name]: value };
-        setDespacho({ ...despacho, pasajeros: pasajerosActualizados });
+        setDespacho({ ...despacho, pasajerosABordo: pasajerosActualizados });
     };
 
     const handleAddPasajero = () => {
-        setDespacho({ ...despacho, pasajeros: [...despacho.pasajeros, { nombre: '', apellido: '' }] });
+        setDespacho({ ...despacho, pasajerosABordo: [...despacho.pasajerosABordo, { nombre: '', apellido: '' }] });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const { nombreEmbarcacion, matriculaEmbarcacion, fechaSalida, horaSalida, pasajeros, dniResponsable, telefono, fechaLlegada, horaLlegada, observaciones } = despacho;
+
+        const { nombreEmbarcacion, matriculaEmbarcacion, fechaSalida, horaSalida, pasajerosABordo, dniResponsable, numeroTelefono, fechaLlegada, horaLlegada, observaciones } = despacho;
 
         if (
             nombreEmbarcacion === '' || 
             matriculaEmbarcacion === '' ||
             fechaSalida === '' || 
             horaSalida === '' || 
-            pasajeros.length === 0 || 
-            pasajeros.some(pasajero => pasajero.nombre === '' || pasajero.apellido === '') || 
+            pasajerosABordo.length === 0 || 
+            // pasajeros.some(pasajero => pasajero.nombre === '' || pasajero.apellido === '') || 
+            // Funcion que transforme la lista de pasajeros a un string concatenado.
+            // ['Beto', 'Laucha'] -> 'Beto, Laucha'
             dniResponsable === '' || 
-            telefono === '' || 
+            numeroTelefono === '' || 
             fechaLlegada === '' || 
             horaLlegada === '' || 
             observaciones === ''
@@ -53,6 +58,9 @@ export function DespachoNew() {
         }
 
         try {
+            const pasajerosString = despacho.pasajerosABordo.map(pasajero => `${pasajero.nombre} ${pasajero.apellido}`).join('-');
+
+            despacho.pasajerosABordo = pasajerosString;
             console.log(despacho);
             const response = await fetch('http://localhost:8080/despacho', {
                 method: 'POST',
@@ -68,6 +76,7 @@ export function DespachoNew() {
             if (response.ok) {
                 setSuccess('Despacho creado con éxito');
                 setError('');
+                navigate('/dashboard');
             } else {
                 setError(data.errores || 'Error al crear el despacho');
             }
@@ -107,7 +116,7 @@ export function DespachoNew() {
                             </FormControl>
                             <Box mt='3px'>
                                 <FormLabel>Pasajeros</FormLabel>
-                                {despacho.pasajeros.map((pasajero, index) => (
+                                {despacho.pasajerosABordo.map((pasajero, index) => (
                                     <Box key={index} display='flex' mt='3px'>
                                         <Input id={`nombre-${index}`} name='nombre' placeholder='Nombre' value={pasajero.nombre} onChange={event => handleChange(event, index)} required />
                                         <Input id={`apellido-${index}`} name='apellido' placeholder='Apellido' value={pasajero.apellido} onChange={event => handleChange(event, index)} required />
@@ -121,7 +130,7 @@ export function DespachoNew() {
                             </FormControl>
                             <FormControl mt='3px'>
                                 <FormLabel>Número de teléfono</FormLabel>
-                                <Input id='telefono' type="text" onChange={(event) => setDespacho({...despacho,telefono :event.target.value})} required />
+                                <Input id='telefono' type="text" onChange={(event) => setDespacho({...despacho,numeroTelefono :event.target.value})} required />
                             </FormControl>
                             <FormControl mt='3px'>
                                 <FormLabel>Fecha de llegada</FormLabel>

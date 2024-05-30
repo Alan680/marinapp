@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { Box, TableContainer, Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
+import { BsFillInfoCircleFill } from "react-icons/bs";
+
 
 export function ListaDespachos() {
     const [despachos, setDespachos] = useState([]);
@@ -24,13 +26,10 @@ export function ListaDespachos() {
                             <Th>Matrícula de la embarcación</Th>
                             <Th>Fecha de salida</Th>
                             <Th>Hora de salida</Th>
-                            <Th>Pasajeros a bordo</Th>
-                            <Th>Número de DNI del responsable</Th>
-                            <Th>Número de teléfono</Th>
                             <Th>Fecha de llegada</Th>
                             <Th>Hora de llegada</Th>
                             <Th>Observaciones</Th>
-                            <Th>Acciones</Th>
+                            <Th>Info. Despacho</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -40,14 +39,11 @@ export function ListaDespachos() {
                                 <Td>{despacho.matriculaEmbarcacion}</Td>
                                 <Td>{despacho.fechaSalida}</Td>
                                 <Td>{despacho.horaSalida}</Td>
-                                <Td>{despacho.pasajeros}</Td>
-                                <Td>{despacho.dniResponsable}</Td>
-                                <Td>{despacho.telefono}</Td>
                                 <Td>{despacho.fechaLlegada}</Td>
                                 <Td>{despacho.horaLlegada}</Td>
                                 <Td>{despacho.observaciones}</Td>
                                 <Td>
-                                    <Link to={`/detalledespacho/${despacho.id}`}>infoDespacho</Link>
+                                    <Link to={`/detalledespacho/${despacho.id}`}><BsFillInfoCircleFill /></Link>
                                 </Td>
                             </Tr>
                         ))}

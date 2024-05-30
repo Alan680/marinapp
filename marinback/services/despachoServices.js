@@ -6,9 +6,9 @@ const insertDespacho = async (despacho) => {
         matriculaEmbarcacion,
         fechaSalida,
         horaSalida,
-        pasajeros,
-        dniResponsable,
-        telefono,
+        pasajerosABordo,
+        //dniResponsable,
+        numeroTelefono,
         fechaLlegada,
         horaLlegada,
         observaciones,
@@ -21,14 +21,13 @@ const insertDespacho = async (despacho) => {
             matriculaEmbarcacion,
             fechaSalida,
             horaSalida,
-            pasajeros,
-            dniResponsable,
-            telefono,
+            pasajerosABordo,
+            numeroTelefono,
             fechaLlegada,
             horaLlegada,
             observaciones,
             idSocio
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const params = [
@@ -36,9 +35,8 @@ const insertDespacho = async (despacho) => {
         matriculaEmbarcacion,
         fechaSalida,
         horaSalida,
-        JSON.stringify(pasajeros), // Convertimos el array de pasajeros a una cadena JSON
-        dniResponsable,
-        telefono,
+        pasajerosABordo, // Convertimos el array de pasajeros a una cadena JSON
+        numeroTelefono,
         fechaLlegada,
         horaLlegada,
         observaciones,
