@@ -1,13 +1,13 @@
-import  connection  from '../models/config.js';
+import connection from '../models/config.js';
 
+const con = connection.promise();
 const insertDespacho = async (despacho) => {
-       const {
+    const {
         nombreEmbarcacion,
         matriculaEmbarcacion,
         fechaSalida,
         horaSalida,
         pasajerosABordo,
-        //dniResponsable,
         numeroTelefono,
         fechaLlegada,
         horaLlegada,
@@ -35,7 +35,7 @@ const insertDespacho = async (despacho) => {
         matriculaEmbarcacion,
         fechaSalida,
         horaSalida,
-        pasajerosABordo, // Convertimos el array de pasajeros a una cadena JSON
+        pasajerosABordo,
         numeroTelefono,
         fechaLlegada,
         horaLlegada,
@@ -44,22 +44,25 @@ const insertDespacho = async (despacho) => {
     ];
 
     try {
-        await connection.execute(sql, params);
+        await con.execute(sql, params);
     } catch (error) {
         console.error('Error al insertar despacho:', error.message);
         throw error;
     }
 };
 
-async function selectDespachoSocio(){
-    const[result] = await connection.execute('Select * from despacho where idSocio = ?', [idSocio]);
-    return result;
+const selectDespachoSocio = async (idSocio) => {
+    const [rows] = await con.execute('SELECT * FROM despacho WHERE idSocio = ?', [idSocio]);
+    return rows;
 };
 
+async function selectDespacho(){
+    const [result] = await con.execute('SELECT * FROM Despacho');
+    return result;
+}
 
 export { 
     insertDespacho,
-    selectDespachoSocio
+    selectDespachoSocio,
+    selectDespacho
 };
-
-

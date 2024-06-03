@@ -1,6 +1,6 @@
 import express from 'express';
 import { loginUser } from '../controllers/loginController.js';
-import {nuevoDespacho} from '../controllers/nuevoDespachoController.js';
+import {nuevoDespacho, getDespachos} from '../controllers/nuevoDespachoController.js';
 import verificarToken from '../middlewares/verificarJWT.js';
 const router = express.Router();
 
@@ -12,10 +12,7 @@ router.get('/', (req, res, next) => {
 
 router.post('/login', loginUser
 );
-/* Redirect to dashboard. */
-router.get('/dashboard', (req, res, next) => {
-  res.redirect('dashboard');
-});
+router.get('/despachos', getDespachos);
 
 router.post('/despacho', verificarToken, nuevoDespacho);
 

@@ -1,5 +1,5 @@
 import { validationResult } from 'express-validator';
-import { insertDespacho } from '../services/despachoServices.js';
+import { insertDespacho,selectDespacho} from '../services/despachoServices.js';
 
 const nuevoDespacho = async (req, res) => {
     try {
@@ -53,6 +53,16 @@ const nuevoDespacho = async (req, res) => {
     }
 };
 
-export { nuevoDespacho };
+const getDespachos = async (req, res) => {
+    try {
+        const despachos = await selectDespacho();
+        res.status(200).json(despachos);
+    } catch (error) {
+        console.log('Error al obtener despachos', error.message);
+        return res.status(500).json({ errors: 'Error al obtener despachos' });
+    }
+};
+
+export { nuevoDespacho, getDespachos };
 
 
