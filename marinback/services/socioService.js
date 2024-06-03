@@ -11,7 +11,7 @@ async function checkIfSocioExists(socioDTO) {
 
 
 async function selectSocio(idSocio){
-    const [result] = await con.execute('SELECT * FROM Socio WHERE idSocio = ?', [idSocio]);
+    const [result] = await con.execute('SELECT * FROM socio WHERE idSocio = ?', [idSocio]);
     return result;
 }
 async function selectSocioByEmail(email){
@@ -20,7 +20,7 @@ async function selectSocioByEmail(email){
 };
 
 async function selectSocios(){
-    const [result] = await con.execute('SELECT * FROM Socio');
+    const [result] = await con.execute('SELECT * FROM socio');
     return result;
 }
 
