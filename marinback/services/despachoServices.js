@@ -57,7 +57,7 @@ const selectDespachoSocio = async (idSocio) => {
 };
 
 async function selectDespacho(){
-    const [result] = await con.execute('SELECT * FROM Despacho');
+    const [result] = await con.execute('SELECT * FROM despacho');
     return result;
 }
 
