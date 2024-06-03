@@ -54,7 +54,7 @@ export function ListaDespachos() {
                                 <Th>Hora de salida</Th>
                                 <Th>Fecha de llegada</Th>
                                 <Th>Hora de llegada</Th>
-                                <Th>Observaciones</Th>
+                                <Th>Observaciones</Th>d
                             </Tr>
                         </Thead>
                         <Tbody>
