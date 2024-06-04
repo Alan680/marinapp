@@ -15,7 +15,7 @@ Instalación Local
 
 .env
 
-
+```
 
 PORT= // Acá va nuestro puerto de desarrollo
 
@@ -38,7 +38,7 @@ Necesitamos crear la base de datos, para ello, deben ir a models/Database.sql, a
 
 Ejecución del código de MySQL
 Necesitamos crear la base de datos, para ello, deben ir a models/Database.sql, ahí tenemos el código de creación para nuestra base de datos, que está compuesta por 2 tablas.
-
+```
 ```
 CREATE database marinapp; 
 
