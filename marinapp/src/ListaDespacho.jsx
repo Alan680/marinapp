@@ -5,7 +5,7 @@ export function ListaDespachos() {
     const [despachos, setDespachos] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const token = sessionStorage.getItem('token');
     const URL = 'https://marinappback-production.up.railway.app';
 
     useEffect(() => {
@@ -32,6 +32,7 @@ export function ListaDespachos() {
         };
         fetchDespachos();
     }, [URL]);
+  
 
     if (isLoading) {
         return <div>Loading...</div>;

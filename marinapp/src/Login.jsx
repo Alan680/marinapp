@@ -32,7 +32,7 @@ export function Login() {
       
       if (response.ok) {
         
-        sessionStorage.setItem('usuario', socio.email);
+        sessionStorage.setItem('token', data.token);
         navigate('/dashboard');
       } else {
         // Manejar errores de autenticación

@@ -8,6 +8,7 @@ export function DespachoNew() {
     const URL = 'https://marinappback-production.up.railway.app';
     const navigate = useNavigate();
     const [error, setError] = useState('');
+    const token = sessionStorage.getItem('token');
     const [success, setSuccess] = useState('');
     const [despacho, setDespacho] = useState({
         nombreEmbarcacion: '',
@@ -64,9 +65,10 @@ export function DespachoNew() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Envía el token en el encabezado de la solicitud
                 },
                 body: JSON.stringify(despacho),
-                credentials: 'include', // Envia cookies con la solicitud
+                credentials: 'include', // Envía cookies con la solicitud
             });
 
             const data = await response.json();
