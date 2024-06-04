@@ -36,9 +36,6 @@ NODE_ENV = 'production' // Acá va 'production' para el manejo de cookies.
 Ejecución del código de MySQL
 Necesitamos crear la base de datos, para ello, deben ir a models/Database.sql, ahí tenemos el código de creación para nuestra base de datos, que está compuesta por 2 tablas.
 
-Ejecución del código de MySQL
-Necesitamos crear la base de datos, para ello, deben ir a models/Database.sql, ahí tenemos el código de creación para nuestra base de datos, que está compuesta por 2 tablas.
-
 ```
 CREATE database marinapp; 
 
