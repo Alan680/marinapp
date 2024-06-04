@@ -8,7 +8,7 @@ export function Login() {
   const [socio, setSocio] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const URL = 'https://marinappback-production.up.railway.app';
+  const URL = 'http://localhost:8080';
 
  
   async function handleSubmit(e) {

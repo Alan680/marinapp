@@ -6,12 +6,11 @@ export function ListaDespachos() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const token = sessionStorage.getItem('token');
-    const URL = 'https://marinappback-production.up.railway.app';
 
     useEffect(() => {
         const fetchDespachos = async () => {
             try {
-                const response = await fetch(`${URL}/despachos`, {
+                const response = await fetch(`http://localhost:8080/despachos`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

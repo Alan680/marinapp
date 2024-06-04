@@ -6,7 +6,7 @@ export function Registro() {
     const [socio, setSocio] = useState({ email: '', password: '', nombre: '', apellido: '' });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-    const URL = 'https://marinappback-production.up.railway.app';
+    const URL = 'http://localhost:8080';
 
 
 

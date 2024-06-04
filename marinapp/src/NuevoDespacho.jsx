@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Center, Box, Heading, FormControl, FormLabel, Input, Button } from '@chakra-ui/react';
 
 export function DespachoNew() {
-    const URL = 'https://marinappback-production.up.railway.app';
+    const URL = 'http://localhost:8080';
     const navigate = useNavigate();
     const [error, setError] = useState('');
     const token = sessionStorage.getItem('token');
