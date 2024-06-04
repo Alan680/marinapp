@@ -5,6 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Center, Box, Heading, FormControl, FormLabel, Input, Button } from '@chakra-ui/react';
 
 export function DespachoNew() {
+    const URL = 'https://marinappback-production.up.railway.app';
     const navigate = useNavigate();
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -44,9 +45,6 @@ export function DespachoNew() {
             fechaSalida === '' || 
             horaSalida === '' || 
             pasajerosABordo.length === 0 || 
-            // pasajeros.some(pasajero => pasajero.nombre === '' || pasajero.apellido === '') || 
-            // Funcion que transforme la lista de pasajeros a un string concatenado.
-            // ['Beto', 'Laucha'] -> 'Beto, Laucha'
             dniResponsable === '' || 
             numeroTelefono === '' || 
             fechaLlegada === '' || 
@@ -56,13 +54,13 @@ export function DespachoNew() {
             setError('Por favor, complete todos los campos.');
             return;
         }
-
+  
         try {
             const pasajerosString = despacho.pasajerosABordo.map(pasajero => `${pasajero.nombre} ${pasajero.apellido}`).join('-');
 
             despacho.pasajerosABordo = pasajerosString;
             console.log(despacho);
-            const response = await fetch('http://localhost:8080/despacho', {
+            const response = await fetch(`${URL}/despacho`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

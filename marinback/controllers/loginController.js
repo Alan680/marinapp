@@ -41,7 +41,7 @@ const loginUser = async (req, res) => {
           maxAge: 3600000 * 4 // 4 horas
         });
 
-        return res.status(200).json({ mensaje: 'Autenticación exitosa' });
+        return res.status(200).json({ mensaje: 'Autenticación exitosa', token:token });
       }
     }
 

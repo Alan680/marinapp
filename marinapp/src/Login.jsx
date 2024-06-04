@@ -8,12 +8,14 @@ export function Login() {
   const [socio, setSocio] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const URL = 'https://marinappback-production.up.railway.app';
 
+ 
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8080/login', { //controlar si el puerto es el correcto
+       const response = await fetch(`${URL}/login`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,9 +28,10 @@ export function Login() {
       });
 
       const data = await response.json();
-
+      console.log(data);
+      
       if (response.ok) {
-        // Si la autenticación es exitosa, guarda el token 
+        
         sessionStorage.setItem('usuario', socio.email);
         navigate('/dashboard');
       } else {
