@@ -11,20 +11,28 @@ https://marinapp-front.vercel.app/
 Instalación Local
 - Realizamos un git clone del repositorio en el directorio que deseemos
 - Realizamos npm install para instalar las dependencias del proyecto
-- Creamos un archivo .env marinback del proyecto, donde tendremos las siguientes variables de entorno
+- Creamos un archivo .env dentro de la carptea marinback del proyecto, donde tendremos las siguientes variables de entorno
 
 .env
 
 
 
 PORT= // Acá va nuestro puerto de desarrollo
+
 PORTSQL= // Acá va el puerto de nuestro servidor de MySQL
+
 USERSQL= // Acá va el usuario de nuestro servidor de MySQL
+
 PASSWORDSQL= // Acá va la contraseña de nuestro servidor de MySQL
+
 HOSTSQL= // Acá va el HOST de nuestro servidor de MySQL
+
 DATASQL= marinapp // Acá va el nombre de nuestra base de datos.
+
 SECRETORPRIVATEKEY= 'secreto123' // Acá va un string aleatorio que se utiliza para la encriptación de contraseñas.  
+
 NODE_ENV = 'production' // Acá va 'production' para el manejo de cookies.
+
 Ejecución del código de MySQL
 Necesitamos crear la base de datos, para ello, deben ir a models/Database.sql, ahí tenemos el código de creación para nuestra base de datos, que está compuesta por 2 tablas.
 
