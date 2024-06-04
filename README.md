@@ -11,7 +11,7 @@ https://marinapp-front.vercel.app/
 Instalación Local
 - Realizamos un git clone del repositorio en el directorio que deseemos
 - Realizamos npm install para instalar las dependencias del proyecto
-- Creamos un archivo .env en el root del proyecto, donde tendremos las siguientes variables de entorno
+- Creamos un archivo .env marinback del proyecto, donde tendremos las siguientes variables de entorno
 
 .env
 
